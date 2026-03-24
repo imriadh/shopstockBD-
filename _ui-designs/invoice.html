@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Products - ShopStock BD</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#006c49",
+              "background": "#f8f9ff",
+              "on-tertiary-fixed-variant": "#842225",
+              "on-tertiary-fixed": "#410005",
+              "surface-dim": "#cbdbf5",
+              "on-error-container": "#93000a",
+              "on-secondary-fixed-variant": "#783200",
+              "tertiary-fixed-dim": "#ffb3af",
+              "surface-variant": "#d3e4fe",
+              "primary-fixed": "#6ffbbe",
+              "on-background": "#0b1c30",
+              "surface-container-high": "#dce9ff",
+              "inverse-surface": "#213145",
+              "primary-container": "#10b981",
+              "on-surface": "#0b1c30",
+              "on-primary-fixed-variant": "#005236",
+              "tertiary-fixed": "#ffdad7",
+              "surface-container": "#e5eeff",
+              "on-secondary-fixed": "#341100",
+              "surface-tint": "#006c49",
+              "tertiary-container": "#fc7c78",
+              "on-tertiary": "#ffffff",
+              "surface-bright": "#f8f9ff",
+              "on-tertiary-container": "#711419",
+              "surface-variant": "#d3e4fe",
+              "outline-variant": "#bbcabf",
+              "on-surface-variant": "#3c4a42",
+              "on-primary": "#ffffff",
+              "surface-container-lowest": "#ffffff",
+              "on-primary-fixed": "#002113",
+              "inverse-on-surface": "#eaf1ff",
+              "secondary-fixed-dim": "#ffb690",
+              "surface": "#f8f9ff",
+              "secondary-container": "#fd761a",
+              "on-secondary": "#ffffff",
+              "tertiary": "#a43a3a",
+              "secondary": "#9d4300",
+              "outline": "#6c7a71",
+              "primary-fixed-dim": "#4edea3",
+              "on-primary-container": "#00422b",
+              "inverse-primary": "#4edea3",
+              "secondary-fixed": "#ffdbca",
+              "error": "#ba1a1a",
+              "surface-container-low": "#eff4ff",
+              "on-error": "#ffffff",
+              "on-secondary-container": "#5c2400",
+              "error-container": "#ffdad6"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-effect {
+        backdrop-filter: blur(20px);
+        background-color: rgba(248, 249, 255, 0.8);
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #bbcabf;
+        border-radius: 10px;
+      }
+    </style>
+</head>
+<body class="bg-background font-body text-on-surface custom-scrollbar">
+<!-- Side Navigation -->
+<aside class="fixed left-0 top-0 h-screen w-64 z-50 bg-surface-container-low flex flex-col p-4 gap-2">
+<div class="flex items-center gap-3 px-4 py-6">
+<div class="w-10 h-10 bg-primary-container rounded-xl flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+</div>
+<div>
+<h1 class="font-headline font-black text-lg text-primary tracking-tight">ShopStock BD</h1>
+<p class="text-[10px] font-label uppercase tracking-widest text-outline">Premium Inventory</p>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1 mt-4">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary" data-icon="dashboard">dashboard</span>
+<span class="font-headline font-semibold text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container rounded-lg shadow-sm" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-headline font-semibold text-sm">Products</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary" data-icon="warehouse">warehouse</span>
+<span class="font-headline font-semibold text-sm">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary" data-icon="payments">payments</span>
+<span class="font-headline font-semibold text-sm">Sales</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary" data-icon="bar_chart">bar_chart</span>
+<span class="font-headline font-semibold text-sm">Reports</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary" data-icon="settings">settings</span>
+<span class="font-headline font-semibold text-sm">Settings</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-outline-variant/20">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined text-outline" data-icon="help">help</span>
+<span class="font-headline font-semibold text-sm">Help Center</span>
+</a>
+<div class="mt-4 p-4 bg-surface-container-highest/50 rounded-xl flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed-dim flex items-center justify-center overflow-hidden">
+<img alt="Owner" class="w-full h-full object-cover" data-alt="professional headshot of a smiling bangladeshi business owner in a modern office setting soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4n861_bKFIlsOCwSZUHCYoQrD7nq1i6Owosq6wJWBvcRe0cFtqCgHFVkcc46STdOfsDfU2E0fSht8ijF2cv1lzNLuq4PvUIhPLBysdISotMoT9PzzHjFjuiiWTv_fVUREjl9AI2_FOuFIq2RF08UA95yp03ScHFsWxKklThO1qhOX4bx7y-w1O1c9P5gsnPtCHsBQ0WLfvtsEv23xFUmuPXc2GpBfTPjFNpCKt-_0VdArNAEX6oT2g7G1WY5d7vvAKvEX_D1_QcnF"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-xs font-bold truncate">Shop Owner</p>
+<p class="text-[10px] text-outline truncate">admin@shopstock.bd</p>
+</div>
+<span class="material-symbols-outlined text-tertiary text-sm cursor-pointer" data-icon="logout">logout</span>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="ml-64 min-h-screen p-8">
+<!-- Header Section -->
+<header class="mb-10">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+<div class="space-y-1">
+<h2 class="text-3xl font-headline font-extrabold text-on-surface tracking-tight">Products <span class="text-primary-container font-medium text-xl ml-2 font-body">পণ্য তালিকা</span></h2>
+<p class="text-on-surface-variant text-sm">Manage your inventory items and stock levels seamlessly.</p>
+</div>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-6 py-3 rounded-lg font-headline font-bold flex items-center gap-2 shadow-lg hover:shadow-primary/20 transition-all active:scale-95">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span>Add Product</span>
+<span class="text-xs font-medium border-l border-white/20 pl-2 ml-1">নতুন পণ্য যোগ করুন</span>
+</button>
+</div>
+<!-- Search and Filter Bar -->
+<div class="mt-8 flex flex-wrap items-center gap-4">
+<div class="flex-1 min-w-[300px] relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors" data-icon="search">search</span>
+<input class="w-full pl-12 pr-4 py-3 bg-surface-container-lowest border-none rounded-xl shadow-sm focus:ring-2 focus:ring-primary-fixed transition-all placeholder:text-outline/60 text-sm" placeholder="Search products... (পণ্য খুঁজুন...)" type="text"/>
+</div>
+<div class="flex items-center gap-3">
+<select class="bg-surface-container-lowest border-none rounded-xl px-4 py-3 text-sm shadow-sm focus:ring-2 focus:ring-primary-fixed cursor-pointer">
+<option>All Categories</option>
+<option>Pharmaceuticals</option>
+<option>Personal Care</option>
+<option>Baby Products</option>
+</select>
+<label class="flex items-center gap-2 bg-surface-container-lowest px-4 py-3 rounded-xl shadow-sm cursor-pointer hover:bg-surface-container transition-colors">
+<input class="w-4 h-4 rounded text-primary focus:ring-primary border-outline-variant" type="checkbox"/>
+<span class="text-sm font-medium">Low Stock Only <span class="text-tertiary">(স্বল্প স্টক)</span></span>
+</label>
+<button class="p-3 bg-surface-container-lowest rounded-xl shadow-sm text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Product Grid/List -->
+<div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+<!-- Product Card 1 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm hover:shadow-md transition-all group relative border border-transparent hover:border-primary-fixed/30">
+<div class="flex gap-4">
+<div class="w-20 h-20 bg-surface-container rounded-lg flex-shrink-0 overflow-hidden">
+<img alt="Napa Extra" class="w-full h-full object-cover" data-alt="a box of napa extra medicine strips clean medical packaging studio lighting white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAy5xxU-s2ZGQt7PNXQq_wCFBBwuQVuK-GAesAY10P6qmZkqsF17NenoOOUFKBGU3lDTr_16uDBGotUXrxkmh4LfbGj4X4n4MvIzZ5d8EcSCifX2LYmHJ1USOA91JkXvgtbla5dX5CG539KGFPj7_lU5yeFEJf_mWJ6o8Xb8XUwYDMjFBGbbSBHlH7HZtnRIozX6uiP-oeOmxcj87-4DQKgIPsae5OFztijKKbVM8h-U8aeHZ3OVojjm28XiuBh1W5lLNvFQjh8spbZ"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline font-bold text-on-surface truncate">Napa Extra 500mg</h3>
+<p class="text-xs text-on-surface-variant font-medium">নাপা এক্সট্রা ৫০০ মি.গ্রা.</p>
+</div>
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<div class="mt-3 flex items-center gap-1.5 text-[11px] font-label text-outline bg-surface-container-low w-fit px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[14px]" data-icon="barcode">barcode</span>
+<span>#890123456789</span>
+</div>
+</div>
+</div>
+<div class="mt-6 grid grid-cols-2 gap-4">
+<div class="p-3 bg-primary-fixed/10 rounded-lg">
+<p class="text-[10px] font-label text-primary uppercase tracking-wider mb-1">Selling Price</p>
+<p class="font-headline font-extrabold text-on-surface tracking-tight">15.00 ৳ <span class="text-[10px] font-medium ml-1">বিক্রয় মূল্য</span></p>
+</div>
+<div class="p-3 bg-surface-container rounded-lg">
+<p class="text-[10px] font-label text-outline uppercase tracking-wider mb-1">Current Stock</p>
+<p class="font-headline font-extrabold text-on-surface tracking-tight">120 Units <span class="text-[10px] font-medium ml-1">বর্তমান</span></p>
+</div>
+</div>
+</div>
+<!-- Product Card 2 (Low Stock) -->
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm hover:shadow-md transition-all group relative border border-tertiary-fixed-dim/20">
+<div class="absolute top-4 right-4 bg-tertiary-container/20 text-on-tertiary-container px-2 py-1 rounded text-[10px] font-bold font-label flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="warning">warning</span>
+                    LOW STOCK (স্বল্প স্টক)
+                </div>
+<div class="flex gap-4">
+<div class="w-20 h-20 bg-surface-container rounded-lg flex-shrink-0 overflow-hidden">
+<img alt="Dove Shampoo" class="w-full h-full object-cover" data-alt="premium shampoo bottle minimalist branding product photography soft teal accents studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDowM52DrA4X5wC9W74s0oMteGcwDrxjYPc8tmW3tkT_sBE5zZYz0nIDdLCZNmeOFdq5vmxN6BwiNIYC5y24TX4jVgxCW7uW-jP9sWYDrmMlP6SRy0_rjh3iPxJMeVcdluY2khZaBMcvJlR37iJLUrQ0pcA19T3pwdhw0vD76MAoDccT5U5OrYOwqmexVZ2B-Zku68G2RgIcv1QMHTjXiK_LdajMoHp66BAqVbWThNZMWL442nY94-tCSvNATuseJw0RJQTWFcg6V1F"/>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-headline font-bold text-on-surface truncate pr-20">Dove Shampoo 180ml</h3>
+<p class="text-xs text-on-surface-variant font-medium">ডোভ শ্যাম্পু ১৮০ মিলি</p>
+<div class="mt-3 flex items-center gap-1.5 text-[11px] font-label text-outline bg-surface-container-low w-fit px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[14px]" data-icon="barcode">barcode</span>
+<span>#890987654321</span>
+</div>
+</div>
+</div>
+<div class="mt-6 grid grid-cols-2 gap-4">
+<div class="p-3 bg-primary-fixed/10 rounded-lg">
+<p class="text-[10px] font-label text-primary uppercase tracking-wider mb-1">Selling Price</p>
+<p class="font-headline font-extrabold text-on-surface tracking-tight">380.00 ৳</p>
+</div>
+<div class="p-3 bg-tertiary-container/10 rounded-lg border border-tertiary/10">
+<p class="text-[10px] font-label text-tertiary uppercase tracking-wider mb-1">Current Stock</p>
+<p class="font-headline font-extrabold text-tertiary tracking-tight">08 Units <span class="text-[10px] font-medium ml-1">বর্তমান</span></p>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm hover:shadow-md transition-all group relative border border-transparent hover:border-primary-fixed/30">
+<div class="flex gap-4">
+<div class="w-20 h-20 bg-surface-container rounded-lg flex-shrink-0 overflow-hidden">
+<img alt="Pure Honey" class="w-full h-full object-cover" data-alt="organic honey jar gold amber liquid product photography rustic background soft focus" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC--mHKFOX_0-tTrZO9gBWH7BaJhrVoRMYT-O6O00akE8qVnsWljTL0zNa9_El1bZ8zvl5N-SRUjnsuF8J3CR0xaZYypJHWSmDpYunKkhgABuFib8uLf3SnIccnZNM0HCUtD193RIk-BpFJLzsJgtaFbVkLExaF2jGKMS1HWHfGTcBN9UqwiZBosH6AL9DsbRMKuupFIjIJ3QA2qiFEU3FhGcMBQV4hw0yGHCrI73-qziQAPPvL4FtNSWoSvua6_2YzflMcHYYa5seR"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline font-bold text-on-surface truncate">Pure Honey 500g</h3>
+<p class="text-xs text-on-surface-variant font-medium">খাঁটি মধু ৫০০ গ্রাম</p>
+</div>
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<div class="mt-3 flex items-center gap-1.5 text-[11px] font-label text-outline bg-surface-container-low w-fit px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[14px]" data-icon="barcode">barcode</span>
+<span>#890334455667</span>
+</div>
+</div>
+</div>
+<div class="mt-6 grid grid-cols-2 gap-4">
+<div class="p-3 bg-primary-fixed/10 rounded-lg">
+<p class="text-[10px] font-label text-primary uppercase tracking-wider mb-1">Selling Price</p>
+<p class="font-headline font-extrabold text-on-surface tracking-tight">650.00 ৳</p>
+</div>
+<div class="p-3 bg-surface-container rounded-lg">
+<p class="text-[10px] font-label text-outline uppercase tracking-wider mb-1">Current Stock</p>
+<p class="font-headline font-extrabold text-on-surface tracking-tight">45 Units <span class="text-[10px] font-medium ml-1">বর্তমান</span></p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Modal Overlay (Add Product) -->
+<div class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-on-surface/40 backdrop-blur-sm">
+<div class="bg-surface-bright w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[921px]">
+<!-- Modal Header -->
+<div class="p-6 bg-surface-container-lowest border-b border-outline-variant/10 flex items-center justify-between">
+<div>
+<h3 class="text-xl font-headline font-extrabold text-on-surface">Add New Product</h3>
+<p class="text-sm text-on-surface-variant">নতুন পণ্য যোগ করুন</p>
+</div>
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container transition-colors text-outline">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<!-- Modal Content (Scrollable) -->
+<div class="flex-1 overflow-y-auto p-8 custom-scrollbar">
+<form class="space-y-6">
+<!-- Image Upload -->
+<div class="flex justify-center">
+<div class="w-full max-w-[200px] aspect-square rounded-2xl border-2 border-dashed border-outline-variant/50 bg-surface-container-low flex flex-col items-center justify-center gap-2 cursor-pointer hover:bg-surface-container-high transition-all group">
+<span class="material-symbols-outlined text-4xl text-outline group-hover:text-primary transition-colors" data-icon="add_a_photo">add_a_photo</span>
+<div class="text-center">
+<p class="text-xs font-bold text-on-surface-variant">Upload Image</p>
+<p class="text-[10px] text-outline">ছবি আপলোড</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Product Name -->
+<div class="space-y-2">
+<label class="block text-xs font-bold font-label uppercase tracking-wider text-on-surface-variant">Product Name <span class="text-primary">(পণ্যের নাম)</span></label>
+<input class="w-full px-4 py-3 bg-surface-container-lowest border border-outline-variant/20 rounded-xl focus:ring-2 focus:ring-primary-fixed focus:border-primary transition-all text-sm" placeholder="e.g. Napa Extra 500mg" type="text"/>
+</div>
+<!-- Barcode -->
+<div class="space-y-2">
+<label class="block text-xs font-bold font-label uppercase tracking-wider text-on-surface-variant">Barcode <span class="text-primary">(বারকোড)</span></label>
+<div class="relative">
+<input class="w-full pl-4 pr-12 py-3 bg-surface-container-lowest border border-outline-variant/20 rounded-xl focus:ring-2 focus:ring-primary-fixed focus:border-primary transition-all text-sm" placeholder="Scan or enter barcode" type="text"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-primary hover:bg-primary/5 p-1 rounded transition-colors" type="button">
+<span class="material-symbols-outlined" data-icon="qr_code_scanner">qr_code_scanner</span>
+</button>
+</div>
+</div>
+<!-- SKU -->
+<div class="space-y-2">
+<label class="block text-xs font-bold font-label uppercase tracking-wider text-on-surface-variant">SKU <span class="text-outline-variant">(ঐচ্ছিক)</span></label>
+<input class="w-full px-4 py-3 bg-surface-container-lowest border border-outline-variant/20 rounded-xl focus:ring-2 focus:ring-primary-fixed focus:border-primary transition-all text-sm" placeholder="SKU-001" type="text"/>
+</div>
+<!-- Category -->
+<div class="space-y-2">
+<label class="block text-xs font-bold font-label uppercase tracking-wider text-on-surface-variant">Category <span class="text-primary">(ক্যাটাগরি)</span></label>
+<select class="w-full px-4 py-3 bg-surface-container-lowest border border-outline-variant/20 rounded-xl focus:ring-2 focus:ring-primary-fixed focus:border-primary transition-all text-sm cursor-pointer">
+<option>Select Category</option>
+<option>Pharmaceuticals</option>
+<option>Daily Groceries</option>
+<option>Cosmetics</option>
+</select>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-5 bg-surface-container-low rounded-2xl">
+<!-- Cost Price -->
+<div class="space-y-2">
+<label class="block text-xs font-bold font-label uppercase tracking-wider text-on-surface-variant">Cost Price <span class="text-primary">(ক্রয় মূল্য)</span></label>
+<div class="relative">
+<input class="w-full pl-4 pr-10 py-3 bg-surface-container-lowest border border-outline-variant/20 rounded-xl focus:ring-2 focus:ring-primary-fixed focus:border-primary transition-all text-sm" placeholder="0.00" type="number"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 font-bold text-outline text-sm">৳</span>
+</div>
+</div>
+<!-- Selling Price -->
+<div class="space-y-2">
+<label class="block text-xs font-bold font-label uppercase tracking-wider text-on-surface-variant">Selling Price <span class="text-primary">(বিক্রয় মূল্য)</span></label>
+<div class="relative">
+<input class="w-full pl-4 pr-10 py-3 bg-surface-container-lowest border border-outline-variant/20 rounded-xl focus:ring-2 focus:ring-primary-fixed focus:border-primary transition-all text-sm" placeholder="0.00" type="number"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 font-bold text-primary text-sm">৳</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Initial Stock -->
+<div class="space-y-2">
+<label class="block text-xs font-bold font-label uppercase tracking-wider text-on-surface-variant">Initial Stock <span class="text-primary">(প্রারম্ভিক স্টক)</span></label>
+<input class="w-full px-4 py-3 bg-surface-container-lowest border border-outline-variant/20 rounded-xl focus:ring-2 focus:ring-primary-fixed focus:border-primary transition-all text-sm" placeholder="0" type="number"/>
+</div>
+<!-- Low Stock Threshold -->
+<div class="space-y-2">
+<label class="block text-xs font-bold font-label uppercase tracking-wider text-on-surface-variant">Stock Alert Limit <span class="text-tertiary">(স্বল্প স্টক অ্যালার্ট)</span></label>
+<input class="w-full px-4 py-3 bg-surface-container-lowest border border-outline-variant/20 rounded-xl focus:ring-2 focus:ring-primary-fixed focus:border-primary transition-all text-sm" placeholder="10" type="number"/>
+</div>
+</div>
+</form>
+</div>
+<!-- Modal Footer -->
+<div class="p-6 bg-surface-container-low border-t border-outline-variant/10 flex items-center justify-end gap-3">
+<button class="px-6 py-2.5 rounded-lg font-headline font-bold text-on-surface-variant hover:bg-surface-container-high transition-all">
+                    Cancel (বাতিল করুন)
+                </button>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-8 py-2.5 rounded-lg font-headline font-bold shadow-lg shadow-primary/20 hover:-translate-y-0.5 transition-all">
+                    Save Product (সংরক্ষণ করুন)
+                </button>
+</div>
+</div>
+</div>
+</body></html>

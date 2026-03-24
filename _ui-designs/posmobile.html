@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+
+<html class="light" lang="bn"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ShopStock BD - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary-fixed-variant": "#842225",
+                        "surface": "#f8f9ff",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "primary-fixed": "#6ffbbe",
+                        "on-surface": "#0b1c30",
+                        "surface-container-low": "#eff4ff",
+                        "on-surface-variant": "#3c4a42",
+                        "surface-container-high": "#dce9ff",
+                        "on-primary-fixed": "#002113",
+                        "outline": "#6c7a71",
+                        "tertiary-fixed-dim": "#ffb3af",
+                        "inverse-surface": "#213145",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#005236",
+                        "on-primary-container": "#00422b",
+                        "on-background": "#0b1c30",
+                        "inverse-primary": "#4edea3",
+                        "on-primary": "#ffffff",
+                        "surface-tint": "#006c49",
+                        "primary-container": "#10b981",
+                        "outline-variant": "#bbcabf",
+                        "tertiary-fixed": "#ffdad7",
+                        "tertiary": "#a43a3a",
+                        "primary": "#006c49",
+                        "background": "#f8f9ff",
+                        "on-secondary-container": "#5c2400",
+                        "surface-variant": "#d3e4fe",
+                        "surface-bright": "#f8f9ff",
+                        "secondary-fixed-dim": "#ffb690",
+                        "on-tertiary-fixed": "#410005",
+                        "secondary-fixed": "#ffdbca",
+                        "on-tertiary-container": "#711419",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#fc7c78",
+                        "surface-dim": "#cbdbf5",
+                        "on-secondary-fixed-variant": "#783200",
+                        "secondary-container": "#fd761a",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#e5eeff",
+                        "error": "#ba1a1a",
+                        "secondary": "#9d4300",
+                        "primary-fixed-dim": "#4edea3",
+                        "on-secondary-fixed": "#341100",
+                        "error-container": "#ffdad6"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bengali-text { line-height: 1.15; }
+        .glass-nav { backdrop-filter: blur(12px); }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased pb-24 md:pb-0">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm dark:shadow-none font-manrope antialiased tracking-tight">
+<div class="flex justify-between items-center px-4 h-16 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-gradient-to-br from-primary to-primary-container rounded-xl flex items-center justify-center text-white shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">storefront</span>
+</div>
+<h1 class="text-xl font-bold text-emerald-900 dark:text-emerald-50">ShopStock BD</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-emerald-700 dark:text-emerald-400 font-semibold hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-[20px]">language</span>
+<span class="text-sm">বাংলা</span>
+</button>
+<div class="h-8 w-px bg-slate-100 dark:bg-slate-800"></div>
+<div class="flex items-center gap-3 pl-2">
+<div class="text-right hidden sm:block">
+<p class="text-xs font-semibold text-on-surface">Admin User</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wider">Manager</p>
+</div>
+<div class="relative group">
+<img alt="User profile with logout option" class="w-10 h-10 rounded-full border-2 border-primary-fixed active:scale-95 transition-transform cursor-pointer" data-alt="close-up portrait of a professional man in a business casual shirt with a clean minimalist background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA81dMRKEA666CBMobRv04cUvIshy8Qn3LPFmNRfBsps-cEt904ej6ONjdvPBQwwYTnKBbKCodaR9csPvwwD0RQbaOjSFi2vjKBDC8SgcYxjyxMdEB9lsbHaCjXiiw9R537cp9ZyFNAgUcuyMYyg2sBrWrj4GpqVEJP0jearTCPUyo_0iCS4f4zWDJivCrjMj3AcHF--WJ-18MjJlm8i38Tu7PQehoiW9aAHDK0GYLumVoqvYMLaKlHs4-5raNwzRH-hJm1Qvp65XAo"/>
+<div class="absolute right-0 mt-2 w-48 bg-surface-bright rounded-xl shadow-[0_12px_32px_-4px_rgba(11,28,48,0.06)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 p-2 border border-outline-variant/20">
+<button class="w-full flex items-center gap-3 px-3 py-2 text-sm text-tertiary hover:bg-tertiary-fixed rounded-lg transition-colors">
+<span class="material-symbols-outlined">logout</span>
+                                Logout
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-slate-100 dark:bg-slate-800 h-px w-full"></div>
+</header>
+<main class="pt-24 px-4 max-w-7xl mx-auto space-y-8">
+<!-- Welcome Section -->
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 class="text-3xl font-extrabold font-headline tracking-tight text-on-surface">Dashboard</h2>
+<p class="text-on-surface-variant font-medium mt-1">স্বাগতম, আপনার দোকানের আজকের সারসংক্ষেপ।</p>
+</div>
+<div class="flex items-center gap-2 text-sm font-semibold text-primary bg-primary-fixed-dim/20 px-4 py-2 rounded-full">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+<span>অক্টোবর ২৪, ২০২৪</span>
+</div>
+</section>
+<!-- Stats Grid (4x1 Desktop, 2x2 Mobile) -->
+<section class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Today's Sales -->
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-[0_4px_12px_rgba(11,28,48,0.03)] flex flex-col justify-between min-h-[140px]">
+<div class="flex justify-between items-start">
+<div class="p-2 bg-primary-fixed-dim/20 rounded-lg text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">payments</span>
+</div>
+<span class="text-[10px] font-bold text-primary bg-primary-fixed-dim/30 px-2 py-1 rounded-full">+12%</span>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-1">Today's Sales</p>
+<p class="text-2xl font-extrabold font-headline bengali-text">১২,৫০০ টাকা</p>
+</div>
+</div>
+<!-- Total Products -->
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-[0_4px_12px_rgba(11,28,48,0.03)] flex flex-col justify-between min-h-[140px]">
+<div class="flex justify-between items-start">
+<div class="p-2 bg-surface-container-high rounded-lg text-on-surface-variant">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+</div>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-1">Total Products</p>
+<p class="text-3xl font-extrabold font-headline">245</p>
+</div>
+</div>
+<!-- Low Stock Items -->
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-[0_4px_12px_rgba(11,28,48,0.03)] border-b-4 border-tertiary/20 flex flex-col justify-between min-h-[140px]">
+<div class="flex justify-between items-start">
+<div class="p-2 bg-tertiary-fixed rounded-lg text-tertiary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div class="animate-pulse flex h-2 w-2 rounded-full bg-tertiary"></div>
+</div>
+<div>
+<p class="text-xs font-bold text-tertiary uppercase tracking-widest mb-1">Low Stock Items</p>
+<p class="text-3xl font-extrabold font-headline text-tertiary">7</p>
+</div>
+</div>
+<!-- Monthly Profit -->
+<div class="bg-gradient-to-br from-primary to-primary-container p-5 rounded-xl shadow-lg shadow-primary/20 flex flex-col justify-between min-h-[140px] text-white">
+<div class="flex justify-between items-start">
+<div class="p-2 bg-white/20 rounded-lg">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+</div>
+</div>
+<div>
+<p class="text-xs font-bold text-white/80 uppercase tracking-widest mb-1">Monthly Profit</p>
+<p class="text-2xl font-extrabold font-headline bengali-text">৪৫,৩০০ টাকা</p>
+</div>
+</div>
+</section>
+<!-- Charts & Quick Actions Row -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Sales Chart Area -->
+<div class="lg:col-span-2 bg-surface-container-lowest p-6 rounded-xl shadow-[0_4px_12px_rgba(11,28,48,0.03)] overflow-hidden">
+<div class="flex justify-between items-center mb-8">
+<h3 class="font-headline font-bold text-lg">Sales Performance (7 Days)</h3>
+<select class="text-xs font-bold uppercase border-none bg-surface-container-low rounded-lg px-3 py-1 text-on-surface-variant focus:ring-primary">
+<option>Last 7 Days</option>
+<option>Last 30 Days</option>
+</select>
+</div>
+<div class="relative h-64 w-full flex items-end justify-between gap-2 px-2">
+<!-- Simple Mockup Sparkline/Bar Chart for 7 days -->
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary-fixed-dim/30 rounded-t-lg transition-all duration-300 group-hover:bg-primary" style="height: 60%"></div>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase">Sat</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary-fixed-dim/30 rounded-t-lg transition-all duration-300 group-hover:bg-primary" style="height: 45%"></div>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase">Sun</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary-fixed-dim/30 rounded-t-lg transition-all duration-300 group-hover:bg-primary" style="height: 85%"></div>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase">Mon</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary-fixed-dim/30 rounded-t-lg transition-all duration-300 group-hover:bg-primary" style="height: 70%"></div>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase">Tue</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary-fixed-dim/30 rounded-t-lg transition-all duration-300 group-hover:bg-primary" style="height: 95%"></div>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase">Wed</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary-fixed-dim/30 rounded-t-lg transition-all duration-300 group-hover:bg-primary" style="height: 55%"></div>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase">Thu</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary-container rounded-t-lg shadow-lg shadow-primary/10" style="height: 100%"></div>
+<span class="text-[10px] font-bold text-primary uppercase">Fri</span>
+</div>
+</div>
+</div>
+<!-- Quick Action Buttons -->
+<div class="flex flex-col gap-4">
+<h3 class="font-headline font-bold text-lg mb-2">Quick Actions</h3>
+<button class="w-full group bg-gradient-to-r from-primary to-primary-container p-4 rounded-xl shadow-lg shadow-primary/20 flex items-center justify-between text-white transition-all hover:scale-[1.02] active:scale-95">
+<div class="flex items-center gap-4">
+<div class="bg-white/20 p-3 rounded-lg">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">add_shopping_cart</span>
+</div>
+<div class="text-left">
+<p class="text-xs font-bold uppercase tracking-widest text-white/80">New Sale</p>
+<p class="text-lg font-bold bengali-text">নতুন বিক্রয়</p>
+</div>
+</div>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward_ios</span>
+</button>
+<button class="w-full group bg-surface-container-high p-4 rounded-xl flex items-center justify-between text-on-primary-container transition-all hover:bg-surface-container-highest active:scale-95">
+<div class="flex items-center gap-4">
+<div class="bg-primary/10 p-3 rounded-lg text-primary">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">post_add</span>
+</div>
+<div class="text-left">
+<p class="text-xs font-bold uppercase tracking-widest opacity-60">Add Product</p>
+<p class="text-lg font-bold bengali-text text-on-surface">পণ্য যোগ করুন</p>
+</div>
+</div>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">add</span>
+</button>
+<button class="w-full group bg-surface-container-high p-4 rounded-xl flex items-center justify-between text-on-primary-container transition-all hover:bg-surface-container-highest active:scale-95">
+<div class="flex items-center gap-4">
+<div class="bg-secondary/10 p-3 rounded-lg text-secondary">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">analytics</span>
+</div>
+<div class="text-left">
+<p class="text-xs font-bold uppercase tracking-widest opacity-60">View Reports</p>
+<p class="text-lg font-bold bengali-text text-on-surface">রিপোর্ট দেখুন</p>
+</div>
+</div>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">bar_chart</span>
+</button>
+</div>
+</section>
+<!-- Low Stock Alerts Section -->
+<section class="bg-tertiary-fixed/30 rounded-xl p-6 border border-tertiary-fixed">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-tertiary">notification_important</span>
+<h3 class="font-headline font-bold text-lg text-on-tertiary-container">Low Stock Alerts (পণ্য স্বল্পতা)</h3>
+</div>
+<div class="space-y-3">
+<div class="bg-surface-container-lowest p-3 rounded-lg flex justify-between items-center shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-surface-container-low rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">pill</span>
+</div>
+<div>
+<p class="font-bold text-sm">Napa Extra 500mg</p>
+<p class="text-[10px] text-tertiary font-bold uppercase tracking-tighter">Only 12 left</p>
+</div>
+</div>
+<button class="text-xs font-bold uppercase text-primary hover:underline">Restock</button>
+</div>
+<div class="bg-surface-container-lowest p-3 rounded-lg flex justify-between items-center shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-surface-container-low rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">opacity</span>
+</div>
+<div>
+<p class="font-bold text-sm">Fresh Soyabean Oil 2L</p>
+<p class="text-[10px] text-tertiary font-bold uppercase tracking-tighter">Only 3 left</p>
+</div>
+</div>
+<button class="text-xs font-bold uppercase text-primary hover:underline">Restock</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 px-4 bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg shadow-[0_-4px_12px_rgba(0,0,0,0.05)] pb-safe">
+<a class="flex flex-col items-center justify-center text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/40 rounded-xl px-3 py-1 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-inter text-[11px] font-medium uppercase tracking-wider mt-1">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1 hover:text-emerald-600 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-inter text-[11px] font-medium uppercase tracking-wider mt-1">Inventory</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1 hover:text-emerald-600 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-inter text-[11px] font-medium uppercase tracking-wider mt-1">Sales</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1 hover:text-emerald-600 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-inter text-[11px] font-medium uppercase tracking-wider mt-1">Orders</span>
+</a>
+</nav>
+<!-- FAB for New Sale on Mobile -->
+<button class="md:hidden fixed bottom-24 right-6 w-14 h-14 bg-gradient-to-br from-secondary to-secondary-container text-white rounded-full shadow-xl shadow-secondary/30 flex items-center justify-center active:scale-90 transition-transform z-40">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+</body></html>

@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  @apply box-border;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-surface text-on-surface;
+}
+
+/* Utility Classes */
+.glass-panel {
+  @apply bg-white/40 backdrop-blur-md border border-white/20;
+}
+
+.glass-panel-dark {
+  @apply bg-surface-container/40 backdrop-blur-md border border-outline-variant/10;
+}
+
+.btn-primary {
+  @apply px-6 py-3 bg-gradient-to-r from-primary to-primary-container text-on-primary rounded-lg font-headline font-bold shadow-lg shadow-primary/20 hover:shadow-xl transition-all active:scale-95;
+}
+
+.btn-secondary {
+  @apply px-6 py-3 bg-surface-container-lowest border border-outline-variant/30 text-on-surface rounded-lg font-headline font-bold hover:bg-surface-container transition-all active:scale-95;
+}
+
+.input-base {
+  @apply w-full px-4 py-3 bg-surface-container-lowest border border-outline-variant/30 rounded-lg focus:ring-2 focus:ring-primary-fixed focus:border-primary transition-all outline-none text-on-surface font-body;
+}
+
+.card-base {
+  @apply bg-surface-container-lowest border border-outline-variant/10 rounded-lg shadow-sm hover:shadow-md transition-all;
+}
+
+.badge {
+  @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-bold;
+}
+
+.badge-success {
+  @apply badge bg-secondary-fixed-dim text-on-secondary-container;
+}
+
+.badge-warning {
+  @apply badge bg-tertiary-fixed-dim text-on-tertiary-container;
+}
+
+.badge-danger {
+  @apply badge bg-tertiary-fixed-dim/40 text-tertiary;
+}
+
+/* Material Icons */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-surface-container-low;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-outline-variant rounded-full hover:bg-outline;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  body {
+    @apply pb-20;
+  }
+}
