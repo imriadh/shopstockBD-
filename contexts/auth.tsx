@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import type { AuthUser, Profile } from '@/types'
@@ -22,7 +22,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [profile, setProfile] = useState<Profile | null>(null)
   const [loading, setLoading] = useState(true)
   const router = useRouter()
-  const [supabase] = useState(() => createClient())
+  const supabase = createClient()
+  const initializingRef = useRef(false)
 
   const fetchProfile = async (userId: string) => {
     const { data: profileData, error } = await supabase
@@ -39,6 +40,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   useEffect(() => {
+    // Prevent double initialization in React Strict Mode
+    if (initializingRef.current) return
+    initializingRef.current = true
+
     const getSession = async () => {
       try {
         const { data: { user } } = await supabase.auth.getUser()
@@ -78,8 +83,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     return () => {
       subscription.unsubscribe()
+      initializingRef.current = false
     }
-  }, [supabase])
+  }, [])
 
   const signUp = async (email: string, password: string) => {
     const { error, data } = await supabase.auth.signUp({
@@ -127,43 +133,69 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const updateProfile = async (updates: Partial<Profile>) => {
-    if (!user) throw new Error('No user')
-
-    // Check if profile exists
-    const { data: existingProfile } = await supabase
-      .from('profiles')
-      .select('id')
-      .eq('user_id', user.id)
-      .maybeSingle()
-
-    let result;
-    
-    if (existingProfile) {
-      // Update existing profile
-      result = await supabase
-        .from('profiles')
-        .update({
-          ...updates,
-          updated_at: new Date().toISOString(),
-        })
-        .eq('user_id', user.id)
-        .select()
-        .single()
-    } else {
-      // Insert new profile
-      result = await supabase
-        .from('profiles')
-        .insert({
-          user_id: user.id,
-          ...updates,
-          updated_at: new Date().toISOString(),
-        })
-        .select()
-        .single()
+    if (!user) {
+      console.error('No user found for profile update')
+      throw new Error('No user logged in')
     }
 
-    if (result.error) throw result.error
-    setProfile(result.data as Profile)
+    console.log('Updating profile for user:', user.id)
+    console.log('Profile updates:', updates)
+
+    try {
+      // Direct insert/upsert approach - simpler and more reliable
+      console.log('Attempting upsert...')
+      
+      const profileData = {
+        user_id: user.id,
+        shop_name: updates.shop_name || '',
+        shop_address: updates.shop_address || '',
+        phone: updates.phone || '',
+        vat_number: updates.vat_number || null,
+        logo_url: updates.logo_url || null,
+        tier: updates.tier || 'free',
+        updated_at: new Date().toISOString(),
+      }
+
+      console.log('Profile data to upsert:', profileData)
+
+      const { data, error } = await supabase
+        .from('profiles')
+        .upsert(profileData, {
+          onConflict: 'user_id',
+          ignoreDuplicates: false
+        })
+        .select()
+        .single()
+
+      console.log('Upsert result:', { data, error })
+
+      if (error) {
+        console.error('Profile upsert failed:', error)
+        throw new Error(`Database error: ${error.message}`)
+      }
+      
+      if (!data) {
+        throw new Error('No data returned from profile creation')
+      }
+      
+      console.log('Profile saved successfully:', data)
+      setProfile(data as Profile)
+      
+      return data
+    } catch (error) {
+      console.error('Caught error in updateProfile:', error)
+      
+      // Provide user-friendly error message
+      if (error instanceof Error) {
+        if (error.message.includes('relation "public.profiles" does not exist')) {
+          throw new Error('Database not set up. Please contact support.')
+        } else if (error.message.includes('new row violates row-level security')) {
+          throw new Error('Permission denied. Please try logging out and back in.')
+        }
+      }
+      
+      throw error
+    }
   }
 
   return (

@@ -1,6 +1,9 @@
 import { createBrowserClient } from '@supabase/ssr/dist/module'
 import type { Database } from '@/types/supabase'
 
+// Singleton client instance to prevent lock conflicts
+let client: ReturnType<typeof createBrowserClient<Database>> | null = null
+
 /**
  * Creates a Supabase client for browser usage (Client Components)
  * 
@@ -8,6 +11,7 @@ import type { Database } from '@/types/supabase'
  * - Persists session in localStorage
  * - Auto-refreshes auth tokens via cookies
  * - Type-safe database queries (when types are generated)
+ * - Singleton pattern to prevent auth lock conflicts
  * 
  * @example
  * ```tsx
@@ -24,7 +28,12 @@ export const createClient = () => {
     )
   }
 
-  return createBrowserClient<Database>(
+  // Return existing client if already created (singleton pattern)
+  if (client) {
+    return client
+  }
+
+  client = createBrowserClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     {
@@ -32,7 +41,10 @@ export const createClient = () => {
         flowType: 'pkce', // Recommended for browser apps
         persistSession: true, // Keep user logged in across page reloads
         detectSessionInUrl: true, // For OAuth redirects
+        autoRefreshToken: true,
       },
     }
   )
+
+  return client
 }

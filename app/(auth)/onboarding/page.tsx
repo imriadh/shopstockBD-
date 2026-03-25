@@ -28,6 +28,8 @@ export default function OnboardingPage() {
     setLoading(true)
 
     try {
+      console.log('Submitting profile with:', { shopName, address, vatNumber })
+      
       await updateProfile({
         shop_name: shopName,
         shop_address: address,
@@ -35,11 +37,15 @@ export default function OnboardingPage() {
         vat_number: vatNumber.trim() ? vatNumber.trim() : null,
         tier: 'free',
       })
+      
+      console.log('Profile updated successfully!')
       router.push('/dashboard')
     } catch (err) {
       console.error('Profile update error:', err)
+      console.error('Error details:', JSON.stringify(err, null, 2))
+      
       const errorMessage = err instanceof Error ? err.message : t.onboarding.saveFailed
-      setError(errorMessage)
+      setError(`Error: ${errorMessage}`)
     } finally {
       setLoading(false)
     }
