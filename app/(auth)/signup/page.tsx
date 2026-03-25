@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useAuth } from '@/contexts/auth'
 import { useLanguage } from '@/contexts/language'
-import { LoaderCircle, Eye, EyeOff } from 'lucide-react'
+import { Loader2, Eye, EyeOff } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -135,7 +135,7 @@ export default function SignupPage() {
               </div>
 
               <Button type="submit" disabled={loading} className="mt-2">
-                {loading ? <LoaderCircle className="mr-2 h-4 w-4 animate-spin" /> : null}
+                {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
                 {t.auth.signupButton}
               </Button>
             </form>

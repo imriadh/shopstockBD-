@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/auth'
 import { useLanguage } from '@/contexts/language'
-import { LoaderCircle, Store, MapPin, Hash } from 'lucide-react'
+import { Loader2, Store, MapPin, Hash } from 'lucide-react'
 
 export default function OnboardingPage() {
   const [shopName, setShopName] = useState('')
@@ -31,14 +31,15 @@ export default function OnboardingPage() {
       await updateProfile({
         shop_name: shopName,
         shop_address: address,
-        // Keep DB compatibility if phone is required by schema.
-        phone: '',
+        phone: '', // Empty string as placeholder since it's required by schema
         vat_number: vatNumber.trim() ? vatNumber.trim() : null,
         tier: 'free',
       })
       router.push('/dashboard')
     } catch (err) {
-      setError(err instanceof Error ? err.message : t.onboarding.saveFailed)
+      console.error('Profile update error:', err)
+      const errorMessage = err instanceof Error ? err.message : t.onboarding.saveFailed
+      setError(errorMessage)
     } finally {
       setLoading(false)
     }
@@ -153,7 +154,7 @@ export default function OnboardingPage() {
               >
                 {loading ? (
                   <>
-                    <LoaderCircle className="animate-spin w-5 h-5" />
+                    <Loader2 className="animate-spin w-5 h-5" />
                     <span>{t.onboarding.saving}</span>
                   </>
                 ) : (

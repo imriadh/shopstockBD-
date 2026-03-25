@@ -52,9 +52,32 @@ export async function updateSession(request: NextRequest) {
   }
 
   if (user && isAuthRoute) {
+    // Check if user has completed onboarding (has a profile)
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('user_id')
+      .eq('user_id', user.id)
+      .maybeSingle()
+
     const redirectUrl = request.nextUrl.clone()
-    redirectUrl.pathname = '/dashboard'
+    // If no profile, redirect to onboarding, otherwise to dashboard
+    redirectUrl.pathname = profile ? '/dashboard' : '/onboarding'
     return NextResponse.redirect(redirectUrl)
+  }
+
+  // If user is authenticated but on dashboard without a profile, redirect to onboarding
+  if (user && isProtectedRoute) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('user_id')
+      .eq('user_id', user.id)
+      .maybeSingle()
+
+    if (!profile) {
+      const redirectUrl = request.nextUrl.clone()
+      redirectUrl.pathname = '/onboarding'
+      return NextResponse.redirect(redirectUrl)
+    }
   }
 
   return supabaseResponse

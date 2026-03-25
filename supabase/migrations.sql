@@ -33,8 +33,7 @@ CREATE TABLE public.products (
   is_active BOOLEAN DEFAULT TRUE,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()),
-  UNIQUE(user_id, sku),
-  UNIQUE(user_id, barcode) WHERE barcode IS NOT NULL
+  UNIQUE(user_id, sku)
 );
 
 -- Transactions table
@@ -85,6 +84,9 @@ CREATE INDEX idx_transactions_user_id ON public.transactions(user_id);
 CREATE INDEX idx_transactions_created_at ON public.transactions(created_at);
 CREATE INDEX idx_transaction_items_transaction_id ON public.transaction_items(transaction_id);
 CREATE INDEX idx_categories_user_id ON public.categories(user_id);
+
+-- Create partial unique index for barcode (only when barcode is not null)
+CREATE UNIQUE INDEX idx_products_user_barcode_unique ON public.products(user_id, barcode) WHERE barcode IS NOT NULL;
 
 -- Enable RLS (Row Level Security)
 ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;

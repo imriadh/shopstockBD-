@@ -90,6 +90,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     if (data.user) {
       setUser(data.user as AuthUser)
+      // Try to fetch profile, but don't fail if it doesn't exist yet
+      try {
+        await fetchProfile(data.user.id)
+      } catch (err) {
+        // Profile doesn't exist yet - this is expected for new signups
+        console.log('No profile yet - will be created during onboarding')
+      }
     }
   }
 
@@ -101,6 +108,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (error) throw error
     
     setUser(data.user as AuthUser)
+    
+    // Fetch profile before redirecting to ensure it's loaded
+    if (data.user) {
+      await fetchProfile(data.user.id)
+    }
+    
     router.push('/dashboard')
   }
 
@@ -116,18 +129,41 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const updateProfile = async (updates: Partial<Profile>) => {
     if (!user) throw new Error('No user')
 
-    const { error, data } = await supabase
+    // Check if profile exists
+    const { data: existingProfile } = await supabase
       .from('profiles')
-      .upsert({
-        user_id: user.id,
-        ...updates,
-        updated_at: new Date().toISOString(),
-      }, { onConflict: 'user_id' })
-      .select()
-      .single()
+      .select('id')
+      .eq('user_id', user.id)
+      .maybeSingle()
 
-    if (error) throw error
-    setProfile(data as Profile)
+    let result;
+    
+    if (existingProfile) {
+      // Update existing profile
+      result = await supabase
+        .from('profiles')
+        .update({
+          ...updates,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('user_id', user.id)
+        .select()
+        .single()
+    } else {
+      // Insert new profile
+      result = await supabase
+        .from('profiles')
+        .insert({
+          user_id: user.id,
+          ...updates,
+          updated_at: new Date().toISOString(),
+        })
+        .select()
+        .single()
+    }
+
+    if (result.error) throw result.error
+    setProfile(result.data as Profile)
   }
 
   return (

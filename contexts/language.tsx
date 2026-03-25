@@ -16,7 +16,6 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguageState] = useState<Language>('en')
-  const [hydrated, setHydrated] = useState(false)
 
   useEffect(() => {
     // Get saved language from localStorage and validate it.
@@ -24,7 +23,6 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     const nextLanguage: Language = saved === 'bn' || saved === 'en' ? saved : 'en'
     document.documentElement.lang = nextLanguage
     setLanguageState(nextLanguage)
-    setHydrated(true)
   }, [])
 
   const setLanguage = (lang: Language) => {
@@ -34,10 +32,6 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   }
 
   const translations = language === 'bn' ? bn : en
-
-  if (!hydrated) {
-    return <>{children}</>
-  }
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t: translations }}>
