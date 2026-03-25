@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
-import { AuthProvider } from '@/contexts/auth'
-import { LanguageProvider } from '@/contexts/language'
+import type { ReactNode } from 'react'
+import { AppProviders } from '@/components/providers/app-providers'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: ReactNode
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -24,11 +24,7 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
       </head>
       <body className="bg-surface font-body text-on-surface antialiased">
-        <LanguageProvider>
-          <AuthProvider>
-            {children}
-          </AuthProvider>
-        </LanguageProvider>
+        <AppProviders>{children}</AppProviders>
       </body>
     </html>
   )
