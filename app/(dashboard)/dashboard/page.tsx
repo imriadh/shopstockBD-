@@ -2,18 +2,14 @@
 
 import { useAuth } from '@/contexts/auth'
 import { useLanguage } from '@/contexts/language'
-import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
 import { Loader2, LogOut } from 'lucide-react'
 
 export default function DashboardPage() {
   const { user, profile, loading, signOut } = useAuth()
   const { t, language, setLanguage } = useLanguage()
-  const router = useRouter()
 
-  // Show loading while auth state is initializing
-  // Don't redirect here - let middleware handle route protection
-  if (loading || !user) {
+  // Show loading while auth is initializing
+  if (loading) {
     return (
       <div className="h-screen flex items-center justify-center">
         <Loader2 className="animate-spin w-8 h-8 text-primary" />
@@ -21,9 +17,10 @@ export default function DashboardPage() {
     )
   }
 
-  // If user exists but no profile, redirect to onboarding
-  if (user && !profile) {
-    router.push('/onboarding')
+  // At this point loading is done
+  // If no user or profile, middleware should have redirected
+  // Just show loading to avoid flash of content
+  if (!user || !profile) {
     return (
       <div className="h-screen flex items-center justify-center">
         <Loader2 className="animate-spin w-8 h-8 text-primary" />

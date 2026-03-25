@@ -25,6 +25,8 @@ export default function OnboardingPage() {
       return
     }
 
+    if (loading) return // Prevent double submission
+
     setLoading(true)
 
     try {
@@ -39,14 +41,15 @@ export default function OnboardingPage() {
       })
       
       console.log('Profile updated successfully!')
-      router.push('/dashboard')
+      
+      // Force redirect to dashboard
+      window.location.href = '/dashboard'
     } catch (err) {
       console.error('Profile update error:', err)
       console.error('Error details:', JSON.stringify(err, null, 2))
       
       const errorMessage = err instanceof Error ? err.message : t.onboarding.saveFailed
       setError(`Error: ${errorMessage}`)
-    } finally {
       setLoading(false)
     }
   }

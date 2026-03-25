@@ -26,17 +26,27 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const initializingRef = useRef(false)
 
   const fetchProfile = async (userId: string) => {
-    const { data: profileData, error } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('user_id', userId)
-      .maybeSingle()
+    try {
+      console.log('Fetching profile for user:', userId)
+      const { data: profileData, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('user_id', userId)
+        .maybeSingle()
 
-    if (error) {
-      throw error
+      if (error) {
+        console.error('Error fetching profile:', error)
+        throw error
+      }
+
+      console.log('Profile fetched:', profileData)
+      setProfile((profileData as Profile | null) ?? null)
+      return profileData
+    } catch (error) {
+      console.error('Failed to fetch profile:', error)
+      setProfile(null)
+      return null
     }
-
-    setProfile((profileData as Profile | null) ?? null)
   }
 
   useEffect(() => {
@@ -180,6 +190,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       
       console.log('Profile saved successfully:', data)
       setProfile(data as Profile)
+      
+      // Ensure the profile is fully set before returning
+      await new Promise(resolve => setTimeout(resolve, 100))
       
       return data
     } catch (error) {
