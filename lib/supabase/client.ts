@@ -1,4 +1,4 @@
-import { createBrowserClient } from '@supabase/ssr'
+import { createBrowserClient } from '@supabase/ssr/dist/module'
 import type { Database } from '@/types/supabase'
 
 /**

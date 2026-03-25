@@ -53,11 +53,13 @@ export async function getLowStockProducts(userId: string) {
     .select('*')
     .eq('user_id', userId)
     .eq('is_active', true)
-    .lt('stock_quantity', supabase.sql`low_stock_threshold`)
     .order('stock_quantity', { ascending: true })
 
   if (error) throw error
-  return data
+
+  type StockRow = { stock_quantity: number; low_stock_threshold: number }
+  const rows = (data ?? []) as StockRow[]
+  return rows.filter((row) => row.stock_quantity < row.low_stock_threshold)
 }
 
 /**
@@ -125,6 +127,7 @@ export async function getTransactionWithItems(transactionId: string) {
     .single()
 
   if (txError) throw txError
+  if (!transaction) throw new Error('Transaction not found')
 
   const { data: items, error: itemsError } = await supabase
     .from('transaction_items')
@@ -133,7 +136,7 @@ export async function getTransactionWithItems(transactionId: string) {
 
   if (itemsError) throw itemsError
 
-  return { ...transaction, items }
+  return { transaction, items }
 }
 
 /**
@@ -173,7 +176,11 @@ export async function getTodaysSales(userId: string) {
 
   if (error) throw error
 
-  return data.reduce(
+  type SalesAccumulator = { count: number; total: number; vat: number }
+  type SalesRow = { total_amount: number; vat_amount: number }
+  const rows = (data ?? []) as SalesRow[]
+
+  return rows.reduce<SalesAccumulator>(
     (acc, tx) => ({
       count: acc.count + 1,
       total: acc.total + tx.total_amount,
@@ -195,8 +202,12 @@ export async function getCategories(userId: string) {
     .eq('user_id', userId)
     .eq('is_active', true)
     .not('category', 'is', null)
-    .distinct()
 
   if (error) throw error
-  return data.map((row) => row.category).filter(Boolean)
+  type CategoryRow = { category: string | null }
+  const rows = (data ?? []) as CategoryRow[]
+  const categories = rows
+    .map((row) => row.category)
+    .filter((category): category is string => Boolean(category))
+  return Array.from(new Set(categories))
 }

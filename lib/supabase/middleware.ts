@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
-import { createServerClient } from '@supabase/ssr'
+import { createServerClient } from '@supabase/ssr/dist/module'
 
 export async function updateSession(request: NextRequest) {
   type CookieToSet = {
