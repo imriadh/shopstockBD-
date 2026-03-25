@@ -32,7 +32,7 @@ body {
 }
 
 .input-base {
-  @apply w-full px-4 py-3 bg-surface-container-lowest border border-outline-variant/30 rounded-lg focus:ring-2 focus:ring-primary-fixed focus:border-primary transition-all outline-none text-on-surface font-body;
+  @apply w-full px-4 py-3 bg-surface-container-lowest border border-outline-variant/30 rounded-lg focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all outline-none text-on-surface font-body;
 }
 
 .card-base {
@@ -44,15 +44,15 @@ body {
 }
 
 .badge-success {
-  @apply badge bg-secondary-fixed-dim text-on-secondary-container;
+  @apply badge bg-secondary-container text-on-secondary-container;
 }
 
 .badge-warning {
-  @apply badge bg-tertiary-fixed-dim text-on-tertiary-container;
+  @apply badge bg-tertiary-container text-on-tertiary-container;
 }
 
 .badge-danger {
-  @apply badge bg-tertiary-fixed-dim/40 text-tertiary;
+  @apply badge bg-tertiary-container/40 text-tertiary;
 }
 
 /* Material Icons */
