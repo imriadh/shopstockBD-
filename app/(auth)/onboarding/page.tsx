@@ -4,12 +4,11 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/auth'
 import { useLanguage } from '@/contexts/language'
-import { LoaderCircle, Store, MapPin, Phone, Hash } from 'lucide-react'
+import { LoaderCircle, Store, MapPin, Hash } from 'lucide-react'
 
 export default function OnboardingPage() {
   const [shopName, setShopName] = useState('')
-  const [shopAddress, setShopAddress] = useState('')
-  const [phone, setPhone] = useState('')
+  const [address, setAddress] = useState('')
   const [vatNumber, setVatNumber] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -21,7 +20,7 @@ export default function OnboardingPage() {
     e.preventDefault()
     setError('')
 
-    if (!shopName || !shopAddress || !phone) {
+    if (!shopName || !address) {
       setError(t.onboarding.requiredFieldsError)
       return
     }
@@ -31,8 +30,9 @@ export default function OnboardingPage() {
     try {
       await updateProfile({
         shop_name: shopName,
-        shop_address: shopAddress,
-        phone: phone,
+        shop_address: address,
+        // Keep DB compatibility if phone is required by schema.
+        phone: '',
         vat_number: vatNumber.trim() ? vatNumber.trim() : null,
         tier: 'free',
       })
@@ -112,36 +112,17 @@ export default function OnboardingPage() {
               {/* Shop Address */}
               <div className="space-y-2">
                 <label className="block text-sm font-headline font-bold text-on-background">
-                  {t.onboarding.shopAddress}
+                  {t.onboarding.address}
                   <span className="text-tertiary ml-1">*</span>
                 </label>
                 <div className="relative">
                   <MapPin className="absolute left-4 top-4 w-5 h-5 text-outline" />
                   <textarea
-                    value={shopAddress}
-                    onChange={(e) => setShopAddress(e.target.value)}
-                    placeholder={t.onboarding.shopAddressPlaceholder}
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    placeholder={t.onboarding.addressPlaceholder}
                     rows={3}
                     className="w-full pl-12 pr-4 py-4 bg-surface-container-lowest border border-outline-variant/30 rounded-xl focus:ring-4 focus:ring-primary-fixed focus:border-primary transition-all outline-none text-on-surface font-body resize-none"
-                    required
-                  />
-                </div>
-              </div>
-
-              {/* Phone */}
-              <div className="space-y-2">
-                <label className="block text-sm font-headline font-bold text-on-background">
-                  {t.onboarding.phone}
-                  <span className="text-tertiary ml-1">*</span>
-                </label>
-                <div className="relative">
-                  <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-outline" />
-                  <input
-                    type="tel"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    placeholder="+880 1XXXXXXXXX"
-                    className="w-full pl-12 pr-4 py-4 bg-surface-container-lowest border border-outline-variant/30 rounded-xl focus:ring-4 focus:ring-primary-fixed focus:border-primary transition-all outline-none text-on-surface font-body"
                     required
                   />
                 </div>
