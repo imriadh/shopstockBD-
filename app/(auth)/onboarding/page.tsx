@@ -33,9 +33,9 @@ export default function OnboardingPage() {
         shop_name: shopName,
         shop_address: shopAddress,
         phone: phone,
-        vat_number: vatNumber || undefined,
+        vat_number: vatNumber.trim() ? vatNumber.trim() : null,
         tier: 'free',
-      } as any)
+      })
       router.push('/dashboard')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to save profile')
