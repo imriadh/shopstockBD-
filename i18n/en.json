@@ -34,7 +34,11 @@
     "vatNumber": "VAT Number (Optional)",
     "completeProfile": "Complete Profile",
     "shopNamePlaceholder": "e.g. Rahman Store",
-    "shopAddressPlaceholder": "e.g. Narayanganj, Bangladesh"
+    "shopAddressPlaceholder": "e.g. Narayanganj, Bangladesh",
+    "requiredFieldsError": "Please fill in all required fields",
+    "saveFailed": "Failed to save profile",
+    "saving": "Saving...",
+    "secureNote": "Your information is secure and used only for your invoices"
   },
   "dashboard": {
     "welcome": "Welcome",

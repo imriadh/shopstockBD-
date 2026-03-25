@@ -34,7 +34,11 @@
     "vatNumber": "ভ্যাট নম্বর (ঐচ্ছিক)",
     "completeProfile": "প্রোফাইল সম্পূর্ণ করুন",
     "shopNamePlaceholder": "যেমন রহমান স্টোর",
-    "shopAddressPlaceholder": "যেমন নারায়ণগঞ্জ, বাংলাদেশ"
+    "shopAddressPlaceholder": "যেমন নারায়ণগঞ্জ, বাংলাদেশ",
+    "requiredFieldsError": "অনুগ্রহ করে সব প্রয়োজনীয় তথ্য পূরণ করুন",
+    "saveFailed": "প্রোফাইল সংরক্ষণ করা যায়নি",
+    "saving": "সংরক্ষণ করছি...",
+    "secureNote": "আপনার তথ্য নিরাপদ এবং শুধুমাত্র আপনার চালান জন্য ব্যবহৃত হয়"
   },
   "dashboard": {
     "welcome": "স্বাগতম",

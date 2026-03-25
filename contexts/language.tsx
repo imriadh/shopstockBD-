@@ -19,14 +19,17 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [hydrated, setHydrated] = useState(false)
 
   useEffect(() => {
-    // Get saved language from localStorage
-    const saved = localStorage.getItem('language') as Language || 'en'
-    setLanguageState(saved)
+    // Get saved language from localStorage and validate it.
+    const saved = localStorage.getItem('language')
+    const nextLanguage: Language = saved === 'bn' || saved === 'en' ? saved : 'en'
+    document.documentElement.lang = nextLanguage
+    setLanguageState(nextLanguage)
     setHydrated(true)
   }, [])
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang)
+    document.documentElement.lang = lang
     localStorage.setItem('language', lang)
   }
 

@@ -22,7 +22,7 @@ export default function OnboardingPage() {
     setError('')
 
     if (!shopName || !shopAddress || !phone) {
-      setError('Please fill in all required fields')
+      setError(t.onboarding.requiredFieldsError)
       return
     }
 
@@ -38,7 +38,7 @@ export default function OnboardingPage() {
       })
       router.push('/dashboard')
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to save profile')
+      setError(err instanceof Error ? err.message : t.onboarding.saveFailed)
     } finally {
       setLoading(false)
     }
@@ -76,13 +76,9 @@ export default function OnboardingPage() {
               <div className="flex-1 h-2 bg-primary rounded-full"></div>
             </div>
             <h1 className="text-4xl font-headline font-extrabold text-on-background mb-2">
-              {language === 'en' ? 'Complete Your Profile' : 'আপনার প্রোফাইল সম্পূর্ণ করুন'}
+              {t.onboarding.title}
             </h1>
-            <p className="text-on-surface-variant">
-              {language === 'en'
-                ? 'Tell us about your shop to get started'
-                : 'শুরু করতে আমাদের আপনার দোকান সম্পর্কে বলুন'}
-            </p>
+            <p className="text-on-surface-variant">{t.onboarding.subtitle}</p>
           </div>
 
           {/* Form Card */}
@@ -97,7 +93,7 @@ export default function OnboardingPage() {
               {/* Shop Name */}
               <div className="space-y-2">
                 <label className="block text-sm font-headline font-bold text-on-background">
-                  {language === 'en' ? 'Shop Name' : 'দোকানের নাম'}
+                  {t.onboarding.shopName}
                   <span className="text-tertiary ml-1">*</span>
                 </label>
                 <div className="relative">
@@ -106,7 +102,7 @@ export default function OnboardingPage() {
                     type="text"
                     value={shopName}
                     onChange={(e) => setShopName(e.target.value)}
-                    placeholder={language === 'en' ? 'e.g. Rahman Store' : 'যেমন রহমান স্টোর'}
+                    placeholder={t.onboarding.shopNamePlaceholder}
                     className="w-full pl-12 pr-4 py-4 bg-surface-container-lowest border border-outline-variant/30 rounded-xl focus:ring-4 focus:ring-primary-fixed focus:border-primary transition-all outline-none text-on-surface font-body"
                     required
                   />
@@ -116,7 +112,7 @@ export default function OnboardingPage() {
               {/* Shop Address */}
               <div className="space-y-2">
                 <label className="block text-sm font-headline font-bold text-on-background">
-                  {language === 'en' ? 'Shop Address' : 'দোকানের ঠিকানা'}
+                  {t.onboarding.shopAddress}
                   <span className="text-tertiary ml-1">*</span>
                 </label>
                 <div className="relative">
@@ -124,7 +120,7 @@ export default function OnboardingPage() {
                   <textarea
                     value={shopAddress}
                     onChange={(e) => setShopAddress(e.target.value)}
-                    placeholder={language === 'en' ? 'e.g. Narayanganj, Bangladesh' : 'যেমন নারায়ণগঞ্জ, বাংলাদেশ'}
+                    placeholder={t.onboarding.shopAddressPlaceholder}
                     rows={3}
                     className="w-full pl-12 pr-4 py-4 bg-surface-container-lowest border border-outline-variant/30 rounded-xl focus:ring-4 focus:ring-primary-fixed focus:border-primary transition-all outline-none text-on-surface font-body resize-none"
                     required
@@ -135,7 +131,7 @@ export default function OnboardingPage() {
               {/* Phone */}
               <div className="space-y-2">
                 <label className="block text-sm font-headline font-bold text-on-background">
-                  {language === 'en' ? 'Phone Number' : 'ফোন নম্বর'}
+                  {t.onboarding.phone}
                   <span className="text-tertiary ml-1">*</span>
                 </label>
                 <div className="relative">
@@ -154,7 +150,7 @@ export default function OnboardingPage() {
               {/* VAT Number */}
               <div className="space-y-2">
                 <label className="block text-sm font-headline font-bold text-on-background">
-                  {language === 'en' ? 'VAT Number (Optional)' : 'ভ্যাট নম্বর (ঐচ্ছিক)'}
+                  {t.onboarding.vatNumber}
                 </label>
                 <div className="relative">
                   <Hash className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-outline" />
@@ -177,12 +173,12 @@ export default function OnboardingPage() {
                 {loading ? (
                   <>
                     <LoaderCircle className="animate-spin w-5 h-5" />
-                    <span>{language === 'en' ? 'Saving...' : 'সংরক্ষণ করছি...'}</span>
+                    <span>{t.onboarding.saving}</span>
                   </>
                 ) : (
                   <>
                     <span className="material-symbols-outlined">check</span>
-                    <span>{language === 'en' ? 'Complete Profile' : 'প্রোফাইল সম্পূর্ণ করুন'}</span>
+                    <span>{t.onboarding.completeProfile}</span>
                   </>
                 )}
               </button>
@@ -191,9 +187,7 @@ export default function OnboardingPage() {
             {/* Info Box */}
             <div className="mt-8 p-4 bg-primary-fixed-dim/10 border border-primary-fixed-dim/20 rounded-lg">
               <p className="text-xs text-primary text-center font-semibold">
-                {language === 'en'
-                  ? '✓ Your information is secure and used only for your invoices'
-                  : '✓ আপনার তথ্য নিরাপদ এবং শুধুমাত্র আপনার চালান জন্য ব্যবহৃত হয়'}
+                {'✓ ' + t.onboarding.secureNote}
               </p>
             </div>
           </div>
